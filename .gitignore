@@ -1,10 +1,10 @@
 *.class
-
+.metadata
+.gitignore
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/
 
 # Package Files #
-*.jar
 *.war
 *.ear
 
@@ -17,3 +17,8 @@ bin*
 .settings*
 .classpath
 .project
+.idea/
+*.txt
+*.iml
+*managment*.xml
+usermanegment.properties

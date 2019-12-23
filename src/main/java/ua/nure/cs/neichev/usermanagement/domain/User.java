@@ -8,29 +8,25 @@ public class User implements Serializable {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 987834932944423295L;
+	private static final long serialVersionUID = 6238880692940276364L;
 	private Long id;
 	private String firstName;
 	private String lastName;
 	private Date dateOfBirth;
 	
-	public User() {
-    }
-	
-	public User(Long id, String firstName, String lastName, Date dateOfBirth) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-    }
-	
-	public User(String firstName, String lastName, Date now) {
-		// TODO Auto-generated constructor stub
+	public User(String firstName, String lastName, Date date) {
+		this.firstName=firstName;
+		this.lastName=lastName;
+		this.dateOfBirth=date;
+	}
+	public User(Long id, String firstName, String lastName, Date date) {
+		this.id = id;
 		this.firstName = firstName;
 		this.lastName = lastName;
-		this.dateOfBirth = now;
+		this.dateOfBirth = date;
 	}
-
+	public User() {
+	}
 	public Long getId() {
 		return id;
 	}
@@ -55,36 +51,48 @@ public class User implements Serializable {
 	public void setDateOfBirth(Date dateOfBirth) {
 		this.dateOfBirth = dateOfBirth;
 	}
+	
 	public String getFullName() {
 		return getLastName() + ", " + getFirstName();
 	}
+	
 	public int getAge() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
 		int currentYear = calendar.get(Calendar.YEAR);
+		int currentDay = calendar.get(Calendar.DATE);
+		int currentMonth = calendar.get(Calendar.MONTH)+1;
 		calendar.setTime(getDateOfBirth());
 		int birthYear = calendar.get(Calendar.YEAR);
-		return currentYear - birthYear;
+		int birthDay = calendar.get(Calendar.DATE);
+		int birthMonth = calendar.get(Calendar.MONTH);
+		if(birthMonth>currentMonth || (birthMonth==currentMonth && birthDay>currentDay) ) {
+			return currentYear-birthYear-1;
+		}
+		else{
+			return currentYear-birthYear;
+		}
 	}
-	
-	public boolean equals(Object obj) {
-		if (obj == null) {
+	public boolean equals(User obj) {
+		if(obj == null) {
 			return false;
 		}
-		if (this == obj) {
+		if(this == obj) {
 			return true;
 		}
-		if (this.getId() == null && ((User) obj).getId() == null) {
+		if(this.getId()==null&&((User) obj).getId()==null) {
 			return true;
 		}
-		
-		return this.getId().equals(((User) obj).getId());
+		return this.getId().equals(obj.getId());
 	}
-	
 	public int hashCode() {
-		if (this.getId() == null) {
+		if(this.getId()==null) {
 			return 0;
 		}
 		return this.getId().hashCode();
 	}
+	
 }
+
+
+
